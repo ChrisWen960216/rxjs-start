@@ -1,6 +1,7 @@
 class Observer {
   constructor() {
     this.listenQueue = [];
+    this.listenObj = {};
   }
 
   // 订阅队列
@@ -16,11 +17,30 @@ class Observer {
       fn.call(this, arg);
     }
   }
+
+  filterListen(key, fn) {
+    if (!this.listenObj[key]) {
+      this.listenObj[key] = [];
+    }
+    this.listenObj[key].push(fn);
+  }
+
+  filterTrigger(eventName, arg) {
+    const key = eventName;
+    const fns = this.listenObj[key];
+    if (!fns || fns.length === 0) {
+      return false;
+    }
+    for (let i = 0; i < fns.length; i += 1) {
+      const fn = fns[i];
+      fn.call(this, arg);
+    }
+    return true;
+  }
 }
 
 const Test = new Observer();
-Test.listen((data) => { console.log(data); });
-Test.listen((data) => { console.log(`${data}AHAHAHH`); });
-Test.trigger('HAHA');
-Test.trigger(2000);
+Test.filterListen('Say', (data) => { console.log(data); });
+Test.filterTrigger('Say', 'HAHA');
+// Test.trigger(2000);
 // export default Observer;
