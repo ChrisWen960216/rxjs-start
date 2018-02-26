@@ -4,43 +4,58 @@ class Observer {
     this.listenObj = {};
   }
 
-  // 订阅队列
-  listen(fn) {
-    this.listenQueue.push(fn);
-  }
+  // // 订阅队列
+  // listen(fn) {
+  //   this.listenQueue.push(fn);
+  // }
 
-  // 发布
-  trigger(arg) {
-    const { listenQueue } = this;
-    for (let i = 0; i < listenQueue.length; i += 1) {
-      const fn = listenQueue[i];
-      fn.call(this, arg);
-    }
-  }
+  // // 发布
+  // trigger(arg) {
+  //   const { listenQueue } = this;
+  //   for (let i = 0; i < listenQueue.length; i += 1) {
+  //     const fn = listenQueue[i];
+  //     fn.call(this, arg);
+  //   }
+  // }
 
-  filterListen(key, fn) {
+  listen(key, fn) {
     if (!this.listenObj[key]) {
       this.listenObj[key] = [];
     }
     this.listenObj[key].push(fn);
   }
 
-  filterTrigger(eventName, arg) {
-    const key = eventName;
+  trigger(...args) {
+    const key = Array.prototype.shift.call(args);
     const fns = this.listenObj[key];
     if (!fns || fns.length === 0) {
       return false;
     }
     for (let i = 0; i < fns.length; i += 1) {
       const fn = fns[i];
-      fn.call(this, arg);
+      fn.call(this, ...args);
+    }
+    return true;
+  }
+
+  remove(key, fn) {
+    const fns = this.listenObj[key];
+    if (!fns) {
+      return false;
+    }
+    if (!fn) {
+      fns.length = 0;
+      return fns;
+    }
+
+    for (let i = fns.length - 1; i >= 0; i -= 1) {
+      const _fn = fns[i];
+      if (_fn === fn) {
+        fns.splice(i, 1);
+      }
     }
     return true;
   }
 }
 
-const Test = new Observer();
-Test.filterListen('Say', (data) => { console.log(data); });
-Test.filterTrigger('Say', 'HAHA');
-// Test.trigger(2000);
-// export default Observer;
+export default Observer;
