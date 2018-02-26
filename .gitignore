@@ -1,0 +1,6 @@
+# package dev
+node_modules
+
+# dist && cache
+.cache
+dist
