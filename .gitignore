@@ -4,3 +4,6 @@ node_modules
 # dist && cache
 .cache
 dist
+
+# testCase
+_test_

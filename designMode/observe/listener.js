@@ -2,6 +2,7 @@ class Observer {
   constructor() {
     this.listenQueue = [];
     this.listenObj = {};
+    this.cache = {};
   }
 
   // // 订阅队列
@@ -23,13 +24,39 @@ class Observer {
       this.listenObj[key] = [];
     }
     this.listenObj[key].push(fn);
+    if (this.cache[key]) {
+      fn.call(this.cache[key]);
+      delete this.cache[key];
+    }
+    // if (!this.listenObj[key]) {
+    //   this.listenObj[key] = [];
+    // }
+    // this.listenObj[key].push(fn);
+    // if (!this.listenObj[key]) {
+    //   this.listenObj[key] = [];
+    // }
+    // this.listenObj[key].push(fn);
   }
+
+  // listen(key, fn) {
+  //   const _fn = fn || null;
+  //   if (!this.listenObj[key]) {
+  //     this.listenObj[key] = [];
+  //   }
+  //   const index = this.listenObj[key].indexOf(null);
+  //   if (index > -1) {
+  //     this.listenObj[key][index] = _fn;
+  //   } else {
+  //     this.listenObj[key].push(_fn);
+  //   }
+  // }
 
   trigger(...args) {
     const key = Array.prototype.shift.call(args);
     const fns = this.listenObj[key];
     if (!fns || fns.length === 0) {
-      return false;
+      this.cache[key] = args;
+      return this.cache;
     }
     for (let i = 0; i < fns.length; i += 1) {
       const fn = fns[i];
