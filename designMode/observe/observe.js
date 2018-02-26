@@ -13,19 +13,26 @@ const observe = new Observer();
 // }, false);
 
 // Custom event
+observeBtn.addEventListener('click', () => {
+  observe.trigger('click', 'Hello World');
+}, false);
+observeBtn.addEventListener('click', () => {
+  observe.listen('click', (data) => {
+    observeDesc.innerHTML = data;
+    alert(data);
+  });
+}, false);
 // observeBtn.addEventListener('click', () => {
-//   observe.trigger('click', 'Hello World');
 //   observe.listen('click', (data) => {
-//     observeDesc.innerHTML = data;
-//     alert(data);
+
 //   });
 // }, false);
-observeBtn.addEventListener('click', () => {
-  observeDesc.innerHTML = 'haha';
-}, false);
-observeBtn.addEventListener('click', () => {
-  alert('haha');
-}, false);
+// observeBtn.addEventListener('click', () => {
+//   observeDesc.innerHTML = 'haha';
+// }, false);
+// observeBtn.addEventListener('click', () => {
+//   alert('haha');
+// }, false);
 // observeBtn.addEventListener('click', () => {
 //   observe.listen('click', (data) => {
 //     alert(data);

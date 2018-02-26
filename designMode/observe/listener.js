@@ -24,8 +24,13 @@ class Observer {
       this.listenObj[key] = [];
     }
     this.listenObj[key].push(fn);
+
     if (this.cache[key]) {
-      fn.call(this.cache[key]);
+      // for (let i = 0; i < this.listenObj[key].length; i += 1) {
+      //   const _fn = this.listenObj[key][i];
+      //   _fn.call(this, this.cache[key]);
+      // }
+      fn.call(this, this.cache[key]);
       delete this.cache[key];
     }
     // if (!this.listenObj[key]) {
