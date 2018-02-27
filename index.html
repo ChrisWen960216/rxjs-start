@@ -7,11 +7,15 @@
   <title>RxJS</title>
 </head>
 <body>
-  <button id='observe-btn'>订阅/发布模式</button>
-  <h3 id='observe-desc'></h3>
-  <button id='rxjs-btn'>RxJS</button>
-  <h3 id='rxjs-desc'></h3>
-  <script src='./designMode/observe/observe.js'></script>
-  <script src='./rxjs/index.js'></script>
+  <div id="app">
+    <header><h1>RxJS-ToDoList</h1></header>
+    <div id='container'>
+      <input class="input-text" type='text' />
+      <button class="btn-add">添加</button>
+      <button class="btn-del">删除</button>
+    </div>
+    <ul id='list'></ul>
+  </div>
+  <script src='./src/ts/main.ts'></script>
 </body>
 </html>
