@@ -1,20 +1,24 @@
+import { Observable, Subject } from 'rxjs';
+import { createTodoItem, mockHttpPost } from './lib';
+
 import '../css/normalize.css';
 import '../css/index.css';
 
-import { Observable } from 'rxjs';
-import { createTodoItem } from './lib';
+const $input = <HTMLInputElement> document.querySelector('.input-text');
+const $list = <HTMLUListElement> document.querySelector('#list');
+const $add = <HTMLButtonElement> document.querySelector('.btn-add');
 
-const $input: HTMLInputElement | null = <HTMLInputElement> document.querySelector('.input-text');
-const $list: HTMLUListElement | null = <HTMLUListElement> document.querySelector('#list');
-const $add: HTMLButtonElement | null = <HTMLButtonElement> document.querySelector('.btn-add');
-
-const $clickAdd: any = Observable.fromEvent<MouseEvent>($add, 'click');
-const $enter: any = Observable.fromEvent<KeyboardEvent>($input, 'keydown').filter((event: KeyboardEvent): boolean => event.keyCode === 13);
+const $clickAdd = Observable.fromEvent<MouseEvent>($add, 'click');
+const $enter = Observable.fromEvent<KeyboardEvent>($input, 'keydown').filter((event: KeyboardEvent): boolean => event.keyCode === 13);
 const _input: any = $enter.merge($clickAdd);
 
-const $item: any = _input
-  .map((): string | number => $input.value)
-  .filter((value: string | number): boolean => { return value !== ''; })
+const $clearInputSubject = new Subject<void>();
+
+const $item = _input
+  .map(() => $input.value)
+  .filter((value: string | number) => { return value !== ''; })
+  .distinct(null, $clearInputSubject)
+  .switchMap(mockHttpPost)
   .map(createTodoItem)
   .do((element: HTMLLIElement) => {
     $list.appendChild(element);
