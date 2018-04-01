@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "parcel index.httml -p 3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,7 +12,7 @@
     "url": "git+https://github.com/ChrisWen960216/rxjs-start.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "ChrisWen",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ChrisWen960216/rxjs-start/issues"
@@ -19,5 +20,11 @@
   "homepage": "https://github.com/ChrisWen960216/rxjs-start#readme",
   "dependencies": {
     "rxjs": "^5.5.7"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.10.0",
+    "parcel-bundler": "^1.7.0"
   }
 }
