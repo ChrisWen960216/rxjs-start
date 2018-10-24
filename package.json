@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html"
+    "server": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -17,16 +18,18 @@
     "url": "https://github.com/ChrisWen960216/rxjs-start/issues"
   },
   "homepage": "https://github.com/ChrisWen960216/rxjs-start#readme",
-  "devDependencies": {
-    "eslint": "^4.18.1",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.9.0",
-    "normalize.css": "^8.0.0",
-    "parcel-bundler": "^1.6.2",
-    "tslint-eslint-rules": "^5.1.0",
-    "typescript": "^2.7.2"
-  },
   "dependencies": {
-    "rxjs": "^5.5.6"
+    "cq-websocket": "^1.8.0",
+    "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
+    "typescript": "^3.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.0",
+    "colors": "^1.3.2",
+    "nodemon": "^1.18.4",
+    "rxjs-tslint-rules": "^4.10.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0"
   }
 }
